@@ -32,21 +32,40 @@
             <h2>Progrés</h2>
             <a href="javascript:void(0);">Hello Nour!</a>
         </div>
-
+      
         <section class="larg">
             <div>
                 <h3>Koussay Ghanmi <span class="entypo-down-open"></span></h3>
                 <p>
 
-                               
+                    HTML :        %70   <br>
+                    CSS  :        %50             <br>
+                    JavaScipt :   %90      <br>
+                    PHP  :        %20          <br>
+                    SQL  :        %40<br>
+                    Your Feedback :<br>
+                    <textarea id="message" placeholder="Write your Feedback here..." required></textarea>
+                    <input type="submit" class="btn"  value="Send To Student">
+                 
+                </p> 
+            </div>
+
+            <div>
+                <h3>Rayen Mezni <span class="entypo-down-open"></span></h3>
+                <p>  
+                    HTML :      %10        <br>
+                    CSS  :         %90         <br>
+                    JavaScipt :    %80     <br>
+                    PHP  :         %0      <br>
+                    SQL  :         %90<br>
+                    Your Feedback :<br>
+                    <textarea id="message" placeholder="Write your Feedback here..." required></textarea>
+
+                    <input type="submit" class="btn" value="Send To Student">
 
                 </p>
             </div>
-            <div>
-                <h3>Rayen Mezni <span class="entypo-down-open"></span></h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus iste quia incidunt ad provident ullam quo assumenda expedita quae sapiente ipsa qui esse similique! Modi obcaecati natus sapiente quaerat omnis.</p>
-            </div>
-
+           
         </section>
     </main>
 </body>
