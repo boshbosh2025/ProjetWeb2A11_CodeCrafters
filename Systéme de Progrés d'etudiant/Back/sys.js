@@ -26,3 +26,26 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
+/*
+  // elements 
+
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    const tooltips = document.querySelectorAll('[data-toggle="tooltip"]');
+    tooltips.forEach(function(tooltip) {
+      new bootstrap.Tooltip(tooltip, {
+        trigger: 'manual'
+      }).show();
+    });
+
+    const progressBars = document.querySelectorAll('.progress-bar');
+    progressBars.forEach(function(bar) {
+      const eachBarWidth = bar.getAttribute('aria-valuenow');
+      bar.style.width = eachBarWidth + '%';
+    });
+  });
+  */
+
+
+
+  
