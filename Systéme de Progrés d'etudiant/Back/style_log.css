@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
 
 body {
-  background: #456;
+  background: rgb(86, 7, 112);
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -24,21 +24,21 @@ body {
   margin-right: auto;
   margin-left: auto;
   border: 12px solid transparent;
-  border-bottom-color: #28d;
+  border-bottom-color: rgb(31, 193, 193) ;
 }
 
 .login-header {
-  background: #28d;
+  background: rgb(86, 7, 112);
   padding: 20px;
   font-size: 1.4em;
   font-weight: normal;
   text-align: center;
   text-transform: uppercase;
-  color: #fff;
+  color: rgb(216, 199, 8); 
 }
 
 .login-container {
-  background: #ebebeb;
+  background: rgb(86, 7, 112);
   padding: 12px;
 }
 
@@ -62,26 +62,26 @@ body {
 .login input[type="email"],
 .login input[type="password"] {
   background: #fff;
-  border-color: #bbb;
-  color: #555;
+  border-color: rgb(31, 193, 193); 
+  color: rgb(216, 199, 8); 
 }
 
 .login input[type="email"]:focus,
 .login input[type="password"]:focus {
-  border-color: #888;
+  border-color: rgb(216, 199, 8); 
 }
 
 .login input[type="submit"] {
-  background: #28d;
+  background: rgb(31, 193, 193); 
   border-color: transparent;
-  color: #fff;
+  color: rgb(216, 199, 8); 
   cursor: pointer;
 }
 
 .login input[type="submit"]:hover {
-  background: #17c;
+  background: rgb(126, 227, 227); 
 }
 
 .login input[type="submit"]:focus {
-  border-color: #05a;
+  border-color: rgb(86, 7, 112);
 }
