@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <title>Tableau de Bord Professeur</title>
+    <link rel="stylesheet" href="exp2.css">
+</head>
+<body>
+
+    <!-- Tableau de Bord Principal -->
+    <div class="dashboard">
+        <h1>Tableau de Bord des professeurs</h1>
+
+        <!-- Formulaire pour Ajouter un Cours -->
+        <section id="add-course">
+            <h2>Ajouter un Cours</h2>
+            <form action="/cours/ajouter" method="POST">
+                <label for="course-title">Titre du cours :</label>
+                <input type="text" id="course-title" name="title" required>
+                
+                <label for="course-description">Description :</label>
+                <textarea id="course-description" name="description" required></textarea>
+                
+                <label for="course-date">Date de début :</label>
+                <input type="date" id="course-date" name="date" required>
+
+                <button type="submit">Ajouter le cours</button>
+            </form>
+        </section>
+
+        <!-- Liste des Cours -->
+        <section id="course-list">
+            <h2>Liste des Cours</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Description</th>
+                        <th>Date de début</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Boucle pour afficher les cours (sera générée dynamiquement) -->
+                    <tr>
+                        <td>Exemple de Cours</td>
+                        <td>Description du cours</td>
+                        <td>01/01/2024</td>
+                        <td>
+                            <button class="edit-btn">Modifier</button>
+                            <button class="delete-btn">Supprimer</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </div>
+
+</body>
+</html>
