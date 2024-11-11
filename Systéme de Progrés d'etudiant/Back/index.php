@@ -45,20 +45,20 @@
                      <thead>
                         <tr>
                            <th>Date</th>
-                           <th>Treatment</th>
-                           <th>Products Used</th>
-                           <th>Colors Used</th>
+                           <th>Price</th>
+                           <th>Username</th>
+                           <th>User Type</th>
                            <th>Notes</th>
                            <th>Edit</th>
                         </tr>
                      </thead>
                      <tbody id="items">
                         <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle ">
-                           <td>10.05.2017</td>
-                           <td>BACK MASSAGE</td>
-                           <td>used L’Oreal</td>
-                           <td>red color</td>
-                           <td>the client prefers green</td>
+                           <td>10.05.2024</td>
+                           <td>80$</td>
+                           <td>Ahmed Andoulsi</td>
+                           <td>Student</td>
+                           <td>the client prefers Node.js courses</td>
                            <td><button type="button" data-toggle="modal" data-target="#edit" data-uid="1" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
                            <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                         </tr>
