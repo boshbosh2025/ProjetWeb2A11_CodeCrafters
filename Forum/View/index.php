@@ -24,9 +24,16 @@ $bd = bdd();
     <div id="Cforum">
         <p>
             <?php
-            // Welcome the user using the session variable
+        
             echo "Welcome, " . htmlspecialchars($_SESSION['username']) . ", to this forum! ";
+            $req= $bd->query('SELECT * FROM categorie');
+            while($reponse = $req->fetch()){
             ?>
+            <div class="categories">
+                <a href="index.php?categorie=<?php echo $reponse['name']?>"><?php echo $reponse['name']?></a>
+
+            </div>
+            <?php } ?>
             <a href="deconnexion.php">Deconnexion</a>
         </p>
     </div>
