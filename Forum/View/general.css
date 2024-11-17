@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(255, 223, 176);
+    background-color: rgb(86, 7, 112);
     margin: 0;
     padding: 0;
     font-family: "Karla", "Arial";
@@ -60,7 +60,7 @@ h1 {
 }
 
 .post {
-    background-color: rgb(247, 234, 206);
+    background-color: rgb(86, 7, 112);
     margin: auto;
     margin-top: 10px;
     min-height: 200px;
