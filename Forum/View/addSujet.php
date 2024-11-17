@@ -1,40 +1,56 @@
-<?php
-session_start();
-include_once "bd.php";
-include_once "addSujet_class.php";
-$bd = bdd();
-$error = '';
-if(isset($_POST['name'],$_POST['sujet'])){
-    $name = $_POST['name'];
-    $sujet = $_POST['sujet'];
-    $addSujet = new addSujet($name,$sujet);
-    if($addSujet->insert()){
-        header("Location: index.php?sujet=" . $_POST['name']);
-    }
-}
-?>
+<?php session_start();
+include_once '../model/bd.php';
+include_once 'model/addSujet.class.php';
+$bdd = bdd();
 
+if(isset($_POST['name']) AND isset($_POST['sujet'])){
+    
+    $addSujet = new addSujet($_POST['name'],$_POST['sujet'],$_POST['categorie']);
+    $verif = $addSujet->verif();
+    if($verif == "ok"){
+        if($addSujet->insert()){
+            header('Location: index.php?sujet='.$_POST['name']);
+        }
+    }
+    else {
+        $erreur = $verif;
+    }
+    
+}
+
+
+
+?>
 <!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset='utf-8' />
+    <title>Mon super forum !</title>
+    
+   
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="test.js"></script>
-</head>
+    <link rel="stylesheet" type="text/css" href="general.css" />
+    <link rel="icon" href="../View/Resource/logo.png" />
+    <link href='http://fonts.googleapis.com/css?family=Karla' rel='stylesheet' type='text/css'>
+<head>
 <body>
-<h1><center>Ajouter un sujet</center></h1>
-<div id="Cforum">
-    <?php echo "Bienvenue, " . htmlspecialchars($_SESSION['username']) . "!"; ?><a href="deconnexion.php">Deconnexion</a>
-    <form method="post" action="addSujet.php">
-        <p>
-            <br>
-            <input type="text" name="name" id="name" placeholder="Nom de Sujet!" required>
-            <br><textarea name="sujet" id="" cols="30" placeholder="Contenu Du Sujet.." rows="10"></textarea>
-            <br> <input type="submit" value="Ajouter le sujet">
-        </p>
-    </form>
-</div>
+ <h1>Ajouter un sujet</h1>
+    
+            <div id="Cforum">
+                <?php  echo 'Bienvenue : '.$_SESSION['pseudo'].' :) - <a href="deconnexion.php">Deconnexion</a> '; ?>
+                
+                <form method="post" action="addSujet.php?categorie=<?php echo $_GET['categorie']; ?>">
+                    <p>
+                        <br><input type="text" name="name" placeholder="Nom du sujet..." required/><br>
+                        <textarea name="sujet" placeholder="Contenu du sujet..."></textarea><br>
+                        <input type="hidden" value="<?php echo $_GET['categorie']; ?>" name="categorie" />
+                        <input type="submit" value="Ajouter le sujet" />
+                        <?php 
+                        if(isset($erreur)){
+                            echo $erreur;
+                        }
+                        ?>
+                    </p>
+                </form>
+            </div>
 </body>
 </html>

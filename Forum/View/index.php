@@ -1,82 +1,136 @@
-<?php
-session_start();
-include_once "bd.php";
-include_once "addSujet_class.php" ;
-include_once "connexion_class.php";
+<?php session_start();
+include_once '../model/bd.php';
+include_once 'model/addPost.class.php';
+$bdd = bdd();
 
+if(!isset($_SESSION['id'])){
 
-if (!isset($_SESSION['id'])) {
-    header("Location: signup.php");
-    exit();
+    header('Location: inscription.php');
 }
-
-$bd = bdd();
-?>
-
+else {
+    
+    if(isset($_POST['name']) AND isset($_POST['sujet'])){
+    
+    $addPost = new addPost($_POST['name'],$_POST['sujet']);
+    $verif = $addPost->verif();
+    if($verif == "ok"){
+        if($addPost->insert()){
+            
+        }
+    }
+    else {/*Si on a une erreur*/
+        $erreur = $verif;
+    }
+    
+}
+    
+    
+    ?>
 <!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forum Page</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <meta charset='utf-8' />
+    <title>Mon super forum !</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" type="text/css" href="general.css" />
+    <link rel="icon" href="../View/Resource/logo.png" />
+    <link href='http://fonts.googleapis.com/css?family=Karla' rel='stylesheet' type='text/css'>
+<head>
 <body>
-    <h1><center>Forum!</center></h1>
-    <div id="Cforum">
-        <p>
-            <?php
-            echo "Bienvenue, " . htmlspecialchars($_SESSION['username']) . "!";
-
-            if (isset($_GET['categorie'])) {
-                $_GET['categorie'] = htmlspecialchars($_GET['categorie']);
-                ?>
-                <a href="addSujet.php">Ajouter un sujet</a>
-                <div class="categories">
-                    <h1><?php echo htmlspecialchars($_GET['categorie']); ?></h1>
-                </div>
-                <?php
-            } elseif (isset($_GET['sujet'])) {
-                $_GET['sujet'] = htmlspecialchars($_GET['sujet']);
-                ?>
-                <div class="categories">
-                    <h1><?php echo htmlspecialchars($_GET['sujet']); ?></h1>
-                </div>
-                <a href="addSujet.php">Ajouter un sujet</a>
-                <?php
-                $req = $bd->prepare("SELECT * FROM postsujet WHERE sujet = :sujet");
-                $req->execute(['sujet' => $_GET['sujet']]);
-
-                while ($rep = $req->fetch()) {
-                    ?>
-                    <div class="post">
-                        <?php                                           //erorr naffiche pas le user 
-                        $req3 = $bd->prepare("SELECT * FROM user WHERE idPrimaire = :idPrimaire");
-                        $req3->execute(['idPrimaire' => $rep['propri']]);
-                        $user = $req3->fetch();
-                            echo htmlspecialchars($user['username']) . ': <br>'; 
-                            echo htmlspecialchars($rep['contenu']);
-                    
-                        ?>
-                    </div>
-                    <?php
-                }
-            } else {
-                echo "Sélectionnez le group chat : ";
-                $req = $bd->query('SELECT * FROM categorie');
-                while ($reponse = $req->fetch()) {
+ <h1>Bienvenue sur mon super forum !</h1>
+    
+            <div id="Cforum">
+                <?php 
+                
+                 echo 'Bienvenue : '.$_SESSION['pseudo'].' :) - <a href="deconnexion.php">Deconnexion</a> ';
+                if(isset($_GET['categorie'])){ /*SI on est dans une categorie*/
+                    $_GET['categorie'] = htmlspecialchars($_GET['categorie']);
                     ?>
                     <div class="categories">
-                        <a href="index.php?categorie=<?php echo htmlspecialchars($reponse['name']); ?>">
-                            <?php echo htmlspecialchars($reponse['name']); ?>
-                        </a>
+                      <h1><?php echo $_GET['categorie']; ?></h1>
+                    </div>
+                <a href="addSujet.php?categorie=<?php echo $_GET['categorie']; ?>">Ajouter un sujet</a>
+                <?php 
+                $requete = $bdd->prepare('SELECT * FROM sujet WHERE categorie = :categorie ');
+                $requete->execute(array('categorie'=>$_GET['categorie']));
+                while($reponse = $requete->fetch()){
+                    ?>
+                     <div class="categories">
+                         <a href="index.php?sujet=<?php echo $reponse['name'] ?>"><h1><?php echo $reponse['name'] ?></h1></a>
                     </div>
                     <?php
                 }
-            }
-            ?>
-            <a href="deconnexion.php">Deconnexion</a>
-        </p>
-    </div>
+                ?>
+                
+                    
+                    <?php
+                }
+                
+                else if(isset($_GET['sujet'])){ /*SI on est dans une categorie*/
+                    $_GET['sujet'] = htmlspecialchars($_GET['sujet']);
+                    ?>
+                    <div class="categories">
+                      <h1><?php echo $_GET['sujet']; ?></h1>
+                    </div>
+                
+                <?php 
+                $requete = $bdd->prepare('SELECT * FROM postSujet WHERE sujet = :sujet ');
+                $requete->execute(array('sujet'=>$_GET['sujet']));
+                while($reponse = $requete->fetch()){
+                    ?>
+                <div class="post">
+                    <?php 
+                     $requete2 = $bdd->prepare('SELECT * FROM membres WHERE id = :id');
+                     $requete2->execute(array('id'=>$reponse['propri']));
+                     $membres = $requete2->fetch();
+                     echo $membres['pseudo']; echo ': <br>';
+                     
+                     echo $reponse['contenu'];
+                    ?>
+                 </div> 
+                <?php
+                   
+                }
+                ?>
+                
+                 <form method="post" action="index.php?sujet=<?php echo $_GET['sujet']; ?>">
+                        <textarea name="sujet" placeholder="Votre message..." ></textarea>
+                        <input type="hidden" name="name" value="<?php echo $_GET['sujet']; ?>" />
+                        <input type="submit" value="Ajouter à la conversation" />
+                        <?php 
+                        if(isset($erreur)){
+                            echo $erreur;
+                        }
+                        ?>
+                    </form>
+                <?php
+                }
+                else { /*Si on est sur la page normal*/
+                    
+                       
+                
+                        $requete = $bdd->query('SELECT * FROM categories');
+                        while($reponse = $requete->fetch()){
+                        ?>
+                            <div class="categories">
+                                <a href="index.php?categorie=<?php echo $reponse['name']; ?>"><?php echo $reponse['name']; ?></a>
+                              </div>
+                
+                    <?php 
+                    }
+                    
+                }
+                 ?>
+                
+                
+                
+                
+                
+            </div>
 </body>
 </html>
+    <?php
+}
+?>
+
+    

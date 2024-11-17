@@ -1,61 +1,50 @@
-<?php
-session_start();
-include_once "bd.php";
-include_once "connexion_class.php";
-
-$bd = bdd();
-$error = '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['username'], $_POST['mdp'])) {
-        $username = htmlspecialchars(trim($_POST['username']));
-        $mdp = $_POST['mdp'];
-
-        // Initialize the connexion object
-        $conn = new connexion($username, $mdp);
-        $verif = $conn->verif();
-
-        if ($verif === 'Ok') {
-            // Start a session if verification is successful
-            $_SESSION['username'] = $username;
-            $_SESSION['id'] = session_id(); // Assign a session ID to signify active login
-            header("Location: index.php");
-            exit();
-        } else {
-            // Error feedback
-            $error = $verif;
-        }
-    } else {
-        $error = "All fields are required.";
+<?php session_start();
+include_once '../model/bd.php';
+include_once 'model/connexion.class.php';
+$bdd = bdd();
+if(isset($_POST['pseudo']) AND isset($_POST['mdp'])){
+    
+    $connexion = new connexion($_POST['pseudo'],$_POST['mdp']);
+    $verif = $connexion->verif();
+    if($verif =="ok"){
+      if($connexion->session()){
+          header('Location: index.php');
+      }
     }
+    else {
+        $erreur = $verif; 
+    } 
 }
-?>
 
+
+?>
 <!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset='utf-8' />
+    <title>Mon super forum !</title>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="test.js"></script>
-</head>
+    <link rel="stylesheet" type="text/css" href="general.css" />
+    <link rel="icon" href="../View/Resource/logo.png" />
+    <link href='http://fonts.googleapis.com/css?family=Karla' rel='stylesheet' type='text/css'>
+<head>
 <body>
-<h1><center>Connexion</center></h1>
-<div id="Cforum">
-    <form action="connexion.php" method="post">
-        <p>
-            <input type="text" name="username" id="username" placeholder="Username" required>
-            <br>
-            <input type="password" name="mdp" id="mdp" placeholder="Password" required>
-            <br><br>
-            <input type="submit" value="Connexion"> 
-            <input type="reset" value="Reset">
-        </p>
-        <?php if (!empty($error)): ?>
-            <p style="color: red;"><?= $error ?></p>
-        <?php endif; ?>
-    </form>
-</div>
+ <h1>Connexion</h1>
+    
+            <div id="Cforum">
+                <form method="post" action="connexion.php">
+                    <p>
+                        <input name="pseudo" type="text" placeholder="Pseudo..." required /><br>
+                        <input name="mdp" type="password" placeholder="Mot de passe..." required /><br>
+                        <input type="submit" value="Connexion !" />
+                        <?php 
+                        if(isset($erreur)){
+                            echo $erreur;
+                        }
+                        ?>
+                    </p>
+                </form> 
+                
+            </div>
 </body>
 </html>
