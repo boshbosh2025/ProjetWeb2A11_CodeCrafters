@@ -27,7 +27,7 @@ if(isset($_POST['name'],$_POST['sujet'])){
 <h1><center>Ajouter un sujet</center></h1>
 <div id="Cforum">
     <?php echo "Bienvenue, " . htmlspecialchars($_SESSION['username']) . "!"; ?><a href="deconnexion.php">Deconnexion</a>
-    <form method="post" action="addPost.php">
+    <form method="post" action="addSujet.php">
         <p>
             <br>
             <input type="text" name="name" id="name" placeholder="Nom de Sujet!" required>
