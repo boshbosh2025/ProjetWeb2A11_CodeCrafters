@@ -17,10 +17,11 @@
     public function insert(){
         $req = $this->bd->prepare('INSERT INTO sujet(name) VALUES (:name)');
         $req->execute(array('name'=> $this->name));
-        $req2 = $this->bd->prepare('INSERT INTO postSujet(propri,contenu,date) VALUES (:propri,:contenu,NOW())');
+        $req2 = $this->bd->prepare('INSERT INTO postSujet(propri,contenu,date,sujet) VALUES (:propri,:contenu,NOW(),:sujet)');
         $req2->execute([
             'propri' => (int) $_SESSION['id'], // Ensure it's an integer
-            'contenu' => $this->sujet
+            'contenu' => $this->sujet,
+            'sujet' =>  $this->name
         ]);
        return 1 ;
     }

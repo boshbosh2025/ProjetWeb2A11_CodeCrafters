@@ -31,10 +31,10 @@ $bd = bdd();
                 ?>
                 <a href="addSujet.php">Ajouter un sujet</a>
                 <div class="categories">
-                    <h1><?php echo $_GET['categorie']; ?></h1>
+                    <h1><?php echo $_GET['sujet']; ?></h1>
                 </div>
                 <?php
-            } elseif (isset($_GET['sujet'])) { // If subject is set
+            } else if (isset($_GET['sujet'])) { // If subject is set
                 $_GET['sujet'] = htmlspecialchars($_GET['sujet']);
                 ?>
                 <div class="categories">
@@ -42,11 +42,18 @@ $bd = bdd();
                 </div>
                 <a href="addSujet.php">Ajouter un sujet</a>
                 <?php
-                $req = $bd->query("SELECT * FROM postsujet");
+                $req = $bd->query("SELECT * FROM postsujet WHERE sujet = :sujet");
+                $req->execute(array('sujet' => $_GET['sujet']));
                 while ($rep = $req->fetch()) {
                     ?>
                     <div class="post">
-                        <?php echo htmlspecialchars($rep['contenu']); ?>
+                        <?php
+                        $req3 = $bd->prepare("SELECT * FROM compte WHERE id = :id");
+                        $req3 = $bd->execute(array('id'=>$rep['propri']));
+                        $compte = $req3->fetch();
+                        echo $compte['username'];
+                        echo ': <br>';
+                        echo htmlspecialchars($rep['contenu']); ?>
                     </div>
                     <?php
                 }
