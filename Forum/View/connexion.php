@@ -1,5 +1,5 @@
 <?php session_start();
-include_once '../model/bd.php';
+include_once '../Controller/bd.php';
 include_once 'model/connexion.class.php';
 $bdd = bdd();
 if(isset($_POST['pseudo']) AND isset($_POST['mdp'])){

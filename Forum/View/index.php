@@ -1,5 +1,5 @@
 <?php session_start();
-include_once '../model/bd.php';
+include_once '../Controller/bd.php';
 include_once 'model/addPost.class.php';
 $bdd = bdd();
 
@@ -37,7 +37,7 @@ else {
     <link href='http://fonts.googleapis.com/css?family=Karla' rel='stylesheet' type='text/css'>
 <head>
 <body>
- <h1>Bienvenue sur mon super forum !</h1>
+ <h1>Forum</h1>
     
             <div id="Cforum">
                 <?php 

@@ -1,5 +1,5 @@
 <?php session_start();
-include_once '../model/bd.php';
+include_once '../Controller/bd.php';
 include_once 'model/inscription.class.php';
 $bdd = bdd();
 
