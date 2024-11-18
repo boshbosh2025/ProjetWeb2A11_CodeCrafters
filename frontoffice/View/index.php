@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_PO
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon super forum !</title>
+    <title>EduLivre</title>
     <link rel="stylesheet" type="text/css" href="general.css" />
     <link rel="icon" href="../View/Resource/logo.png" />
     <link href="http://fonts.googleapis.com/css?family=Karla" rel="stylesheet" type="text/css">
