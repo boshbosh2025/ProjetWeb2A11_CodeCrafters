@@ -1,15 +1,14 @@
 <?php 
 session_start();
 
-// Using absolute paths to include files
-include_once $_SERVER['DOCUMENT_ROOT'] . '/forum_connexion_inscription/Controller/bd.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/forum_connexion_inscription/Model/bd.php';
+include_once '../Controller/bd.php';
+include_once '../Model/addSujet.class.php';
 
 // Verifying the connection to the database
 $bdd = bdd();
 
 // Check if form data is submitted
-if (isset($_POST['name']) AND isset($_POST['sujet'])) {
+if (isset($_POST['name']) && isset($_POST['sujet'])) {
     
     // Creating a new addSujet object
     $addSujet = new addSujet($_POST['name'], $_POST['sujet'], $_POST['categorie']);
@@ -22,13 +21,13 @@ if (isset($_POST['name']) AND isset($_POST['sujet'])) {
         if ($addSujet->insert()) {
             // Redirect to index page after successful insert
             header('Location: index.php?sujet=' . $_POST['name']);
+            exit();
         }
     } else {
         // Store verification error message
         $erreur = $verif;
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -46,18 +45,18 @@ if (isset($_POST['name']) AND isset($_POST['sujet'])) {
     
     <div id="Cforum">
         <?php 
-        echo 'Bienvenue : ' . $_SESSION['pseudo'] . ' :) - <a href="deconnexion.php">Deconnexion</a> ';
+        echo 'Bienvenue : ' . $_SESSION['pseudo'] . ' :) - <a href="deconnexion.php">Deconnexion</a>';
         ?>
         
-        <form method="post" action="addSujet.php?categorie=<?php echo $_GET['categorie']; ?>">
+        <form method="post" action="addSujet.php?categorie=<?php echo htmlspecialchars($_GET['categorie']); ?>">
             <p>
                 <br><input type="text" name="name" placeholder="Nom du sujet..." required/><br>
                 <textarea name="sujet" placeholder="Contenu du sujet..."></textarea><br>
-                <input type="hidden" value="<?php echo $_GET['categorie']; ?>" name="categorie" />
+                <input type="hidden" value="<?php echo htmlspecialchars($_GET['categorie']); ?>" name="categorie" />
                 <input type="submit" value="Ajouter le sujet" />
                 <?php 
                 if (isset($erreur)) {
-                    echo $erreur;
+                    echo '<p style="color:red;">' . htmlspecialchars($erreur) . '</p>';
                 }
                 ?>
             </p>
