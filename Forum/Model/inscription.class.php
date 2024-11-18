@@ -1,5 +1,5 @@
 <?php  
-include_once '../model/bd.php';
+include_once '../Controller/bd.php';
 
 
 class inscription{

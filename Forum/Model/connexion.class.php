@@ -1,4 +1,4 @@
-<?php include_once '../model/bd.php';
+<?php include_once '../Controller/bd.php';
 
 class connexion{
     

@@ -1,6 +1,6 @@
 <?php session_start();
 include_once '../Controller/bd.php';
-include_once 'model/inscription.class.php';
+include_once '../Model/inscription.class.php';
 $bdd = bdd();
 
 if(isset($_POST['pseudo']) AND isset($_POST['email']) AND isset($_POST['mdp'])  AND isset($_POST['mdp2'])){
