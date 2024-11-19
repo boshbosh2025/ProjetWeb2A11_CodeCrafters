@@ -39,5 +39,13 @@ class addPost{
         
         return 1;
     }
+    public function deletePost($postId, $userId) {
+        $requete = $this->bdd->prepare('DELETE FROM postSujet WHERE id = :id AND propri = :propri');
+        $requete->execute([
+            'id' => $postId,
+            'propri' => $userId
+        ]);
+        return $requete->rowCount() > 0; // Returns true if a row was deleted
+    }
     
 }

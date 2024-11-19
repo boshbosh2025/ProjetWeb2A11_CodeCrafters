@@ -5,12 +5,31 @@ include_once '../Model/addPost.class.php';
 
 $bdd = bdd();
 
-
+// Redirect to the login page if the user is not logged in
 if (!isset($_SESSION['id'])) {
     header('Location: inscription.php');
     exit;
 }
 
+// Handle post deletion
+if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['post_id'])) {
+    $postId = intval($_GET['post_id']);
+    
+    // Verify that the user owns the post
+    $verifyQuery = $bdd->prepare('SELECT * FROM postSujet WHERE id = :id AND propri = :propri');
+    $verifyQuery->execute(['id' => $postId, 'propri' => $_SESSION['id']]);
+    
+    if ($verifyQuery->rowCount() > 0) {
+        // Delete the post
+        $deleteQuery = $bdd->prepare('DELETE FROM postSujet WHERE id = :id');
+        $deleteQuery->execute(['id' => $postId]);
+        echo '<p style="color: green;">Commentaire supprimé avec succès !</p>';
+    } else {
+        echo '<p style="color: red;">Vous ne pouvez pas supprimer ce commentaire.</p>';
+    }
+}
+
+// Handle adding a new post
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_POST['sujet'])) {
     $addPost = new addPost($_POST['name'], $_POST['sujet']);
     $verif = $addPost->verif();
@@ -35,12 +54,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_PO
     <h1>Forum</h1>
     <div id="Cforum">
         <?php 
+        // Display the user's username or login prompt
         if (isset($_SESSION['pseudo'])) {
             echo 'Bienvenue : ' . htmlspecialchars($_SESSION['pseudo']) . ' :) - <a href="deconnexion.php">Deconnexion</a>';
         } else {
             echo 'Bienvenue : Anonyme :) - <a href="connexion.php">Connexion</a>';
         }
 
+        // If a category is selected
         if (isset($_GET['categorie'])) { 
             $categorie = htmlspecialchars($_GET['categorie']);
             ?>
@@ -61,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_PO
                 <?php
             }
         } elseif (isset($_GET['sujet'])) { 
+            // If a topic is selected
             $sujet = htmlspecialchars($_GET['sujet']);
             ?>
             <div class="categories">
@@ -78,6 +100,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_PO
                     $membre = $requete2->fetch();
                     echo htmlspecialchars($membre['pseudo']) . ':<br>';
                     echo htmlspecialchars($reponse['contenu']);
+                    
+                    // Show delete link if the user owns the comment
+                    if ($reponse['propri'] == $_SESSION['id']) {
+                        echo '<br><a href="index.php?action=delete&post_id=' . $reponse['id'] . '&sujet=' . urlencode($sujet) . '">Supprimer votre commentaire</a>';
+                    }
                     ?>
                 </div>
                 <?php
@@ -95,6 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_PO
             </form>
             <?php
         } else { 
+            // Display all categories
             $requete = $bdd->query('SELECT * FROM categories');
             while ($reponse = $requete->fetch()) {
                 ?>
