@@ -3,9 +3,15 @@ session_start();
 include_once '../Controller/bd.php';
 $bdd = bdd();
 
-// Fetch all members
-$requete = $bdd->query('SELECT * FROM membres');
-$members = $requete->fetchAll();
+// Function to fetch table data dynamically
+function fetchTableData($bdd, $table) {
+    $query = $bdd->query("SELECT * FROM $table");
+    return $query->fetchAll();
+}
+
+// Default table to display
+$table = isset($_GET['table']) ? $_GET['table'] : 'membres';
+$data = fetchTableData($bdd, $table);
 ?>
 
 <!DOCTYPE html>
@@ -20,32 +26,47 @@ $members = $requete->fetchAll();
 </head>
 <body>
     <div class="container">
-        <h1 class="my-5 text-center">Gestion des Membres</h1>
+        <h1 class="my-5 text-center">Gestion des Données</h1>
 
         <hr>
 
-       
-        <h2>Liste des Membres</h2>
+        <div class="mb-3">
+            <button class="btn btn-primary me-2" onclick="loadTable('membres')">Membres</button>
+            <button class="btn btn-primary me-2" onclick="loadTable('categories')">Categories</button>
+            <button class="btn btn-primary me-2" onclick="loadTable('postsujet')">PostSujet</button>
+            <button class="btn btn-primary" onclick="loadTable('sujet')">Sujet</button>
+        </div>
+
+        <h2>Liste des <?php echo ucfirst($table); ?></h2>
         <table class="table table-striped mt-3">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Pseudo</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Mot de Passe</th>
+                    <?php
+                    // Dynamically create table headers
+                    if (!empty($data)) {
+                        foreach (array_keys($data[0]) as $key) {
+                            echo "<th scope='col'>" . htmlspecialchars($key) . "</th>";
+                        }
+                    }
+                    ?>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($members as $member): ?>
+                <?php foreach ($data as $row): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($member['id']); ?></td>
-                        <td><?php echo htmlspecialchars($member['pseudo']); ?></td>
-                        <td><?php echo htmlspecialchars($member['email']); ?></td>
-                        <td><?php echo htmlspecialchars($member['mdp']); ?></td>                   
+                        <?php foreach ($row as $value): ?>
+                            <td><?php echo htmlspecialchars($value); ?></td>
+                        <?php endforeach; ?>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
+
+    <script>
+        function loadTable(table) {
+            window.location.href = `members.php?table=${table}`;
+        }
+    </script>
 </body>
 </html>
