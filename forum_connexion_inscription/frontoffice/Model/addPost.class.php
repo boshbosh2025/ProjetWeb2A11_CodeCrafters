@@ -30,7 +30,6 @@ class addPost{
       
         
     }
-    
     public function insert(){
        
         
@@ -48,4 +47,15 @@ class addPost{
         return $requete->rowCount() > 0; // Returns true if a row was deleted
     }
     
+    public function modifyPost($postId, $newContent, $userId) {
+        $requete = $this->bdd->prepare('UPDATE postSujet SET contenu = :contenu WHERE id = :id AND propri = :propri');
+        $requete->execute([
+            'contenu' => htmlspecialchars($newContent),
+            'id' => $postId,
+            'propri' => $userId
+        ]);
+        return $requete->rowCount() > 0; // Returns true if a row was updated
+    }
+
+
 }
