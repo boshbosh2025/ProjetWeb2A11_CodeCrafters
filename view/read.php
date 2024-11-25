@@ -3,15 +3,15 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     echo "<table border='1'>";
-    echo "<tr><th>ID</th><th>Nom</th><th>Email</th><th>Type</th><th>Message</th><th>Priorité</th><th>Date</th><th>Actions</th></tr>";
+    echo "<tr><th>ID</th><th>Nom complet</th><th>Email</th><th>Nom matiére</th><th>Description</th><th>Priorité</th><th>Date</th><th>Actions</th></tr>";
 
     while($row = $result->fetch_assoc()) {
         echo "<tr>
                 <td>{$row['id']}</td>
                 <td>{$row['name']}</td>
                 <td>{$row['email']}</td>
-                <td>{$row['type']}</td>
-                <td>{$row['message']}</td>
+                <td>{$row['nom matiére']}</td>
+                <td>{$row['description']}</td>
                 <td>{$row['priority']}</td>
                 <td>{$row['created_at']}</td>
                 <td>
