@@ -1,3 +1,4 @@
+/* Style général */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -11,24 +12,6 @@ header {
     color: white;
     text-align: center;
     padding: 1.5rem;
-}
-
-.nav {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.nav li {
-    margin: 0 20px;
-}
-
-.nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
 }
 
 main {
@@ -46,11 +29,21 @@ h2 {
     margin-bottom: 1rem;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
 input, select, textarea {
     width: 100%;
     padding: 0.8rem;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+textarea {
+    resize: vertical;
 }
 
 .progress-bar {
@@ -67,11 +60,10 @@ input, select, textarea {
     transition: width 0.3s ease-in-out;
 }
 
-footer {
-    text-align: center;
-    margin-top: 2rem;
-    padding: 1rem;
-    background-color: #4CAF50;
-    color: white;
-    font-size: 0.9rem;
+.dynamic-field {
+    display: none;
+}
+
+.dynamic-field.active {
+    display: block;
 }
