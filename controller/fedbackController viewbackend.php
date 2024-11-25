@@ -44,10 +44,11 @@ class fedbackController
         try {
             $query = $conn->prepare($sql);
             $query->execute([
-                'name' => $product->getName(),
-                'prenom' => $product->getprenom(),
+                'nom complet' => $product->getName(),
+                'id' => $product->getid(),
+                'nom matiére' => $product->getnommatiere(),
                 'email' => $product->getemail(),
-                'message' => $product->getmessage(),
+                'description' => $product->getdescription(),
 
             ]);
             echo "product inserted succcefully";
