@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Réclamation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenue sur notre plateforme de cours en ligne</h1>
+        <nav>
+            <ul class="nav">
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#courses">Cours</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#reclamation">Réclamation</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Soumettez votre réclamation</h2>
+            <p>Veuillez utiliser ce formulaire pour signaler tout problème ou toute préoccupation liée à nos services éducatifs.</p>
+            <div class="progress-bar">
+                <div class="progress" id="progress-bar"></div>
+            </div>
+            <form id="reclamation-form" action="submit.php" method="POST">
+                <!-- Nom -->
+                <label for="name">Nom complet :</label>
+                <input type="text" id="name" name="name" placeholder="Votre nom complet" required>
+
+                <!-- Identifiant -->
+                <label for="Id">Identifiant :</label>
+                <input type="text" id="Id" name="Id" placeholder="Votre identifiant" required>
+
+                <!-- Email -->
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" placeholder="Votre email" required>
+
+                <!-- Sélecteur de type -->
+                <label for="type">Type de réclamation :</label>
+                <select id="type" name="type" required>
+                    <option value="" disabled selected>-- Sélectionnez --</option>
+                    <option value="cours">Problème avec un cours</option>
+                    <option value="paiement">Problème de paiement</option>
+                    <option value="technique">Problème technique</option>
+                    <option value="autre">Autre</option>
+                </select>
+
+                <!-- Champs dynamiques -->
+                <div id="dynamic-fields">
+                    <div id="cours-details" class="dynamic-field">
+                        <label for="cours-name">Nom du cours :</label>
+                        <input type="text" id="cours-name" name="cours-name" placeholder="Nom du cours">
+                    </div>
+
+                    <div id="paiement-details" class="dynamic-field">
+                        <label for="transaction-id">ID de transaction :</label>
+                        <input type="text" id="transaction-id" name="transaction-id" placeholder="Numéro de transaction">
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <label for="message">Description :</label>
+                <textarea id="message" name="message" placeholder="Décrivez votre réclamation" rows="6" required></textarea>
+
+                <!-- Priorité -->
+                <label>Priorité :</label>
+                <div class="checkbox-group">
+                    <label><input type="radio" name="priority" value="enseignant" required> Enseignant</label>
+                    <label><input type="radio" name="priority" value="etudiant"> Étudiant</label>
+                </div>
+
+                <!-- Consentement -->
+                <div>
+                    <label><input type="checkbox" name="consent" required> J'accepte les termes et conditions</label>
+                </div>
+
+                <!-- Boutons -->
+                <div class="form-buttons">
+                    <button type="reset" class="reset-btn">Réinitialiser</button>
+                    <button type="submit" class="submit-btn" id="submit-btn">Envoyer</button>
+                </div>
+            </form>
+            <p class="confirmation-message" id="confirmation-message">Votre réclamation a été envoyée avec succès !</p>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024-2025 Plateforme Éducative - Tous droits réservés.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
