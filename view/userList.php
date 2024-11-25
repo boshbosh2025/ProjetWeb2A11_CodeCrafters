@@ -16,21 +16,22 @@ $list = $fedbackController->feedbackList();
 <body>
     <table border>
         <tr>
+             <th>nom complet</th>
             <th>id</th>
-            <th>name</th>
-            <th>prenom</th>
+            <th>nom matiére</th>
             <th>email</th>
-            <th>message</th>
+            <th>description</th>
 
         </tr>
         <?php
         foreach ($list as $feedback) {
         ?> <tr>
+                <td><?= $feedback['nom complet']; ?></td>
                 <td><?= $feedback['id']; ?></td>
-                <td><?= $feedback['name']; ?></td>
-                <td><?= $feedback['prenom']; ?></td>
+                <td><?= $feedback['nom matiére']; ?></td>
                 <td><?= $feedback['email']; ?></td>
-                <td><?= $feedback['message']; ?></td>
+                <td><?= $feedback['description']; ?></td>
+                
 
                 <td>
                     
