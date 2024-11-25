@@ -6,8 +6,8 @@ include_once '../Model/addPost.class.php';
 $bdd = bdd();
 
 
-if (!isset($_SESSION['id'])) {
-    header('Location: inscription.php');
+if (!isset($_SESSION['id'])) {		
+    header('Location: inscription.php');		//nothin
     exit;
 }
 
