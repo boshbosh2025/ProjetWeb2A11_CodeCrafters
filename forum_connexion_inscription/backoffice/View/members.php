@@ -46,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     <link rel="icon" href="../View/Resource/logo.png" type="image/x-icon">
 </head>
 <body>
+    <?php include 'sidebar.php'; ?>
     <div class="container">
         <h1 class="my-5 text-center">Gestion des Membres</h1>
 

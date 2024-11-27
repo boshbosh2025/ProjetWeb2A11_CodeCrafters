@@ -26,39 +26,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['keyword'])) {
     <title>Search Sujet</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="my-5 text-center">Rechercher un Sujet</h1>
-        
-        <form method="get" action="search.php" class="mb-4">
-            <div class="input-group">
-                <input type="text" name="keyword" class="form-control" placeholder="Entrez un mot-clé..." value="<?php echo isset($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : ''; ?>">
-                <button type="submit" class="btn btn-primary">Rechercher</button>
-            </div>
-        </form>
+    <?php include 'sidebar.php'; ?>
 
-        <?php if (!empty($searchResults)): ?>
-            <h2>Résultats de la recherche :</h2>
-            <table class="table table-striped mt-3">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nom</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($searchResults as $sujet): ?>
+    <div class="content">
+        <div class="container">
+            <h1 class="my-5 text-center">Rechercher un Sujet</h1>
+            
+            <form method="get" action="search.php" class="mb-4">
+                <div class="input-group">
+                    <input type="text" name="keyword" class="form-control" placeholder="Entrez un mot-clé..." value="<?php echo isset($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : ''; ?>">
+                    <button type="submit" class="btn btn-primary">Rechercher</button>
+                </div>
+            </form>
+
+            <?php if (!empty($searchResults)): ?>
+                <h2>Résultats de la recherche :</h2>
+                <table class="table table-striped mt-3">
+                    <thead>
                         <tr>
-                            <td><?php echo htmlspecialchars($sujet['id']); ?></td>
-                            <td><?php echo htmlspecialchars($sujet['name']); ?></td>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Action</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['keyword'])): ?>
-            <p>Aucun résultat trouvé.</p>
-        <?php endif; ?>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($searchResults as $sujet): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($sujet['id']); ?></td>
+                                <td><?php echo htmlspecialchars($sujet['name']); ?></td>
+                                <td>
+                                    <form method="post" style="display:inline-block;">
+                                        <input type="hidden" name="delete_id" value="<?php echo $sujet['id']; ?>">
+                                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['keyword'])): ?>
+                <p>Aucun résultat trouvé.</p>
+            <?php endif; ?>
+        </div>
     </div>
 </body>
 </html>
+

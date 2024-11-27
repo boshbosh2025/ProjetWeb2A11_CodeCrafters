@@ -47,3 +47,23 @@ h1, h2 {
     background-color: rgb(216, 199, 8); /* Yellow */
     border-color: rgb(216, 199, 8);
 }
+
+.bg-purple {
+    background-color: rgb(86, 7, 112); /* Purple */
+}
+
+.nav-link {
+    font-weight: bold;
+    padding: 10px;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: rgb(31, 193, 193); /* Teal */
+    border-radius: 5px;
+}
+
+.nav-link i {
+    margin-right: 10px;
+}
