@@ -1,19 +1,19 @@
 <?php
 require '../configuration/config.php';
 class feedback{
+    private $nom_complet;
     private $id;
-    private $name;
-    private $prenom;
+    private $nom_matiére;
     private $email;
-    private $message;
+    private $description;
 
 
-    public function __construct($id,$name,$prenom,$email,$message) {
+    public function __construct($name,$id,$nom_matiére,$email,$description) {
+        $this->nom_complet = $name;
         $this->id=$id;
-        $this->name = $name;
-        $this->prenom = $prenom;
+        $this->nom_matiére = $nom_matiére;
         $this->email = $email;
-        $this->message = $message;
+        $this->description = $description;
 
     }
 
@@ -38,21 +38,20 @@ class feedback{
     }
 
     /**
-     * Get the value of price
+     * Get the id
      */ 
-    public function setprenom()
+    public function setid()
     {
-        return $this->prenom;
+        return $this->id;
     }
 
     /**
-     * Set the value of price
-     *
+    
      * @return  self
      */ 
-    public function setprenom($price)
+    public function setnom_matiére($nom_matiére)
     {
-        $this->prenom = $prenom;
+        $this->nom_matiére= $nom_matiére;
 
         return $this;
     }
@@ -78,21 +77,21 @@ class feedback{
     }
 
 /**
-     * Get the value of message
+     * Get the value of description
      */ 
-    public function getmessage()
+    public function getdescription()
     {
-        return $this->message;
+        return $this->description;
     }
 
     /**
-     * Set the value of message
+     * Set the value of description
      *
      * @return  self
      */ 
-    public function getmessage($message)
+    public function getdescription($description)
     {
-        $this->message = $message;
+        $this->description = $description;
 
         return $this;
     }

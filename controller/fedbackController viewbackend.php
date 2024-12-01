@@ -37,8 +37,8 @@ class fedbackController
     // add new feedback
     public function creatfeedback($feedback)
     {
-        $sql = "INSERT INTO feedback (id,name,prenom,email,message)
-        VALUES (NULL,:name,:prenom,:email,:message)";
+        $sql = "INSERT INTO feedback (nom complet,id,nom matiére,email,description)
+        VALUES (NULL,:nom complet,:id, :nom matiére, :email,:description)";
         $conn = config::getConnexion();
 
         try {
@@ -63,19 +63,20 @@ class fedbackController
 
         $query = $db->prepare(
             'UPDATE feedback SET 
-                name = :name,
-                prenom = :prenom,
+                nom complet = :nom complet,
+                id = :id,
+                nom matiére = :nom matiére,
                 email = :email,
-                message=:message,
+                description=:description,
             WHERE id = :id'
         );
         try {
             $query->execute([
+                'nom complet' => $product->getNomcomplet(),
                 'id' => $id,
-                'name' => $product->getName(),
-                'prenom' => $product->getprenom(),
+                'nom matiére' => $product->getNommatiére(),
                 'email' => $product->getemail(),
-                'message' => $product->getmessage(),
+                'description' => $product->getdescription(),
             ]);
 
             echo $query->rowCount() . " records UPDATED successfully <br>";
