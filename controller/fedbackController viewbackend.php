@@ -90,7 +90,7 @@ class fedbackController
     public function deletefeedback($id)
     {
         $sql = "DELETE FROM feedback WHERE id = :id";
-        $conn = config::getConnexion();
+        $db = config::getConnexion();
         try {
             $query = $conn->prepare($sql);
             $query->bindValue(':id', $id, PDO::PARAM_INT);
