@@ -1,33 +1,31 @@
 <?php
-include_once '../Controller/bd.php'; // Adjust the path based on your directory structure
-include_once '../View/sidebar.php'; // Include the sidebar
+include_once '../Controller/bd.php';
+include_once '../View/sidebar.php';
 
-// Get the database connection
+
 $pdo = bdd();
 
-// Define the list of offensive words to search for
-$offensiveWords = ["connard", "putain", "merde", "pute"];
+$offensiveWords = ["connard", "putain", "merde", "salaud", "bordel", "con", "imbécile"];
 
-// Prepare the SQL query to search for offensive words
+
 try {
-    // Create placeholders for each word in the offensiveWords array
+    
     $placeholders = implode(" OR ", array_fill(0, count($offensiveWords), "p.contenu LIKE ?"));
     
-    // Construct the SQL query with the placeholders
+    
     $sql = "SELECT p.id, p.contenu, p.date, u.pseudo AS username
             FROM postsujet p
             JOIN membres u ON p.propri = u.id
-            WHERE $placeholders"; // $placeholders is inserted here
+            WHERE $placeholders";
 
-    // Prepare the statement
+   
     $stmt = $pdo->prepare($sql);
 
-    // Bind the offensive words to the prepared statement
+
     foreach ($offensiveWords as $index => $word) {
         $stmt->bindValue($index + 1, "%$word%", PDO::PARAM_STR);
     }
 
-    // Execute the statement
     $stmt->execute();
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
