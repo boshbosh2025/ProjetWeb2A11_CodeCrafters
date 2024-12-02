@@ -16,85 +16,57 @@ class feedback{
         $this->description = $description;
 
     }
-
-    /**
-     * Get the value of name
-     */ 
-    public function getName()
-    {
-        return $this->name;
+   
+    // Getter et setter pour 'nom_complet'
+    public function getNomComplet(): string {
+        return $this->nom_complet;
     }
-
-    /**
-     * Set the value of name
-     *
-     * @return  self
-     */ 
-    public function setName($name)
-    {
-        $this->name = $name;
-
+    public function setNomComplet(string $nom_complet): self {
+        $this->nom_complet = $nom_complet;
         return $this;
     }
 
-    /**
-     * Get the id
-     */ 
-    public function setid()
-    {
+    // Getter et setter pour 'id'
+    public function getId(): int {
         return $this->id;
     }
 
-    /**
-    
-     * @return  self
-     */ 
-    public function setnom_matiére($nom_matiére)
-    {
-        $this->nom_matiére= $nom_matiére;
-
+    public function setId(int $id): self {
+        $this->id = $id;
         return $this;
     }
 
-    /**
-     * Get the value of mail
-     */ 
-    public function getemail()
-    {
+    // Getter et setter pour 'nom_matiere'
+    public function getNomMatiere(): string {
+        return $this->nom_matiere;
+    }
+
+    public function setNomMatiere(string $nom_matiere): self {
+        $this->nom_matiere = $nom_matiere;
+        return $this;
+    }
+
+     // Getter et setter pour 'email'
+     public function getEmail(): string {
         return $this->email;
     }
 
-    /**
-     * Set the value of mail
-     *
-     * @return  self
-     */ 
-    public function getemail($email)
-    {
+    public function setEmail(string $email): self {
         $this->email = $email;
-
         return $this;
     }
 
-/**
-     * Get the value of description
-     */ 
-    public function getdescription()
-    {
+    // Getter et setter pour 'description'
+    public function getDescription(): string {
         return $this->description;
     }
 
-    /**
-     * Set the value of description
-     *
-     * @return  self
-     */ 
-    public function getdescription($description)
-    {
+    public function setDescription(string $description): self {
         $this->description = $description;
-
         return $this;
     }
-    
 }
+    
+    
+
 ?>

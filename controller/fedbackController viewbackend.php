@@ -5,7 +5,7 @@ require_once "../Model/fedback.php";
 
 class fedbackController
 {
-    // select all fedback list
+    // Liste de tous les feedbacks
     public function feedbackList()
     {
         $sql = "SELECT * FROM feedback";
@@ -15,90 +15,90 @@ class fedbackController
             $liste = $conn->query($sql);
             return $liste;
         } catch (Exception $e) {
-            die('Erreur: ' . $e->getMessage());
+            die('Erreur : ' . $e->getMessage());
         }
     }
-    //select one feedback by id
-    function getfeedbackById($id)
+
+    // Récupérer un feedback par ID
+    public function getfeedbackById($id)
     {
-        $sql = "SELECT * from feedback where id = $id";
+        $sql = "SELECT * FROM feedback WHERE id = :id";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
+            $query->bindValue(':id', $id, PDO::PARAM_INT);
             $query->execute();
 
             $feedback = $query->fetch();
-            return $product;
+            return $feedback;
         } catch (Exception $e) {
-            die('Error: ' . $e->getMessage());
+            die('Erreur : ' . $e->getMessage());
         }
     }
 
-    // add new feedback
+    // Ajouter un nouveau feedback
     public function creatfeedback($feedback)
     {
-        $sql = "INSERT INTO feedback (nom complet,id,nom matiére,email,description)
-        VALUES (NULL,:nom complet,:id, :nom matiére, :email,:description)";
+        $sql = "INSERT INTO feedback (nom_complet, id, nom_matiere, email, description)
+                VALUES (:nom_complet, :id, :nom_matiere, :email, :description)";
         $conn = config::getConnexion();
 
         try {
             $query = $conn->prepare($sql);
             $query->execute([
-                'nom complet' => $product->getName(),
-                'id' => $product->getid(),
-                'nom matiére' => $product->getnommatiere(),
-                'email' => $product->getemail(),
-                'description' => $product->getdescription(),
-
+                'nom_complet' => $feedback->getNomComplet(),
+                'id' => $feedback->getId(),
+                'nom_matiere' => $feedback->getNomMatiere(),
+                'email' => $feedback->getEmail(),
+                'description' => $feedback->getDescription(),
             ]);
-            echo "product inserted succcefully";
+
+            echo "Feedback ajouté avec succès.";
         } catch (Exception $e) {
-            die('Erreur: ' . $e->getMessage());
+            die('Erreur : ' . $e->getMessage());
         }
     }
 
-    function updatefeedback($feedback, $id)
+    // Mettre à jour un feedback
+    public function updatefeedback($feedback, $id)
     {
+        $sql = "UPDATE feedback SET 
+                    nom_complet = :nom_complet,
+                    nom_matiere = :nom_matiere,
+                    email = :email,
+                    description = :description
+                WHERE id = :id";
         $db = config::getConnexion();
 
-        $query = $db->prepare(
-            'UPDATE feedback SET 
-                nom complet = :nom complet,
-                id = :id,
-                nom matiére = :nom matiére,
-                email = :email,
-                description=:description,
-            WHERE id = :id'
-        );
         try {
+            $query = $db->prepare($sql);
             $query->execute([
-                'nom complet' => $product->getNomcomplet(),
+                'nom_complet' => $feedback->getNomComplet(),
+                'nom_matiere' => $feedback->getNomMatiere(),
+                'email' => $feedback->getEmail(),
+                'description' => $feedback->getDescription(),
                 'id' => $id,
-                'nom matiére' => $product->getNommatiére(),
-                'email' => $product->getemail(),
-                'description' => $product->getdescription(),
             ]);
 
-            echo $query->rowCount() . " records UPDATED successfully <br>";
+            echo $query->rowCount() . " enregistrements mis à jour avec succès.";
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            echo "Erreur : " . $e->getMessage();
         }
     }
 
-
-
-
-    // delete one feedback by id
+    // Supprimer un feedback par ID
     public function deletefeedback($id)
     {
-        $sql = "DELETE FROM feedback WHERE id=:id";
+        $sql = "DELETE FROM feedback WHERE id = :id";
         $conn = config::getConnexion();
-        $req = $conn->prepare($sql);
-        $req->bindValue(':id', $id);
         try {
-            $req->execute();
+            $query = $conn->prepare($sql);
+            $query->bindValue(':id', $id, PDO::PARAM_INT);
+            $query->execute();
+
+            echo "Feedback supprimé avec succès.";
         } catch (Exception $e) {
-            die('Erreur: ' . $e->getMessage());
+            die('Erreur : ' . $e->getMessage());
         }
     }
 }

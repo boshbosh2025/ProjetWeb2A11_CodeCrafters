@@ -39,8 +39,8 @@ submitBtn.addEventListener('click', () => {
     }
 
     // Vérification de la description
-    const messageField = document.getElementById('message');
-    const messageError = document.getElementById('message-error');
+    const messageField = document.getElementById('description');
+    const messageError = document.getElementById('description-error');
     if (messageField.value.trim().length < 10) {
         messageError.textContent = "La description doit contenir au moins 10 caractères.";
         messageError.style.display = 'block';

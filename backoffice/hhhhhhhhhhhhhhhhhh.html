@@ -74,10 +74,55 @@
 
         .nav {
             display: flex;
+            justify-content: center;
+            gap: 15px;
         }
 
         .nav li {
-            margin: 20px;
+            list-style: none;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+        }
+
+        .reclamation-btn {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .reclamation-btn:hover {
+            background-color: #388e3c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
         }
     </style>
 </head>
@@ -101,80 +146,87 @@
             <li>
                 <button 
                     class="reclamation-btn" 
-                    data-name="Bachar" 
-                    data-id="125486"
-                    data-email="medbacharmh@gmail.com" 
-                    data-message="Problème avec un cours.">
-                    Bachar
+                    data-name="bach ar" 
+                    data-id="12345"
+                    data-email="bachar@example.com" 
+                    data-message="Problème avec un cours spécifique.">
+                    Réclamation de John Doe
                 </button>
             </li>
-            <!-- Ajoutez d'autres noms ici -->
+            <li>
+                <button 
+                    class="reclamation-btn" 
+                    data-name="Jane Smith" 
+                    data-id="67890"
+                    data-email="janesmith@example.com" 
+                    data-message="Problème technique avec le site.">
+                    Réclamation de Jane Smith
+                </button>
+            </li>
         </ul>
 
         <section id="preview">
             <div>
                 <h3>Prévisualisation :</h3>
-                <p><strong>Nom complet:</strong> <span id="preview-name">-</span></p>
-                <p><strong>ID :</strong> <span id="preview-identifiant">125486</span></p>
-                <p><strong>Nom matiére :</strong> <span id="preview-nom matiére">math</span></p>
+                <p><strong>Nom complet :</strong> <span id="preview-name">-</span></p>
+                <p><strong>ID :</strong> <span id="preview-id">-</span></p>
                 <p><strong>Email :</strong> <span id="preview-email">-</span></p>
                 <p><strong>Description :</strong> <span id="preview-message">-</span></p>
             </div>
-            <!-- Boutons -->
             <div class="form-buttons">
                 <button type="reset" class="reset-btn">Rejeter</button>
                 <button type="button" class="submit-btn" id="submit-btn">Accepter</button>
             </div>
         </section>
     </main>
+
     <footer>
         <p>&copy; 2024-2025 espace administration</p>
     </footer>
-    <button class="theme-toggle" id="theme-toggle"></button>
+
+    <button class="theme-toggle" id="theme-toggle">&#9728;</button>
 
     <script>
-        // Sélectionner les boutons de réclamation et la section de prévisualisation
         const reclamationBtns = document.querySelectorAll('.reclamation-btn');
         const previewSection = document.getElementById('preview');
         const previewName = document.getElementById('preview-name');
+        const previewId = document.getElementById('preview-id');
         const previewEmail = document.getElementById('preview-email');
         const previewMessage = document.getElementById('preview-message');
 
-        // Ajouter des événements de clic pour chaque bouton
         reclamationBtns.forEach((btn) => {
             btn.addEventListener('click', () => {
-                // Récupérer les données dynamiques
                 const name = btn.getAttribute('data-name');
+                const id = btn.getAttribute('data-id');
                 const email = btn.getAttribute('data-email');
                 const message = btn.getAttribute('data-message');
 
-                // Mettre à jour la prévisualisation
-                previewName.textContent = name;
-                previewEmail.textContent = email;
-                previewMessage.textContent = message;
+                previewName.textContent = name || "Nom non spécifié";
+                previewId.textContent = id || "ID non spécifié";
+                previewEmail.textContent = email || "Email non spécifié";
+                previewMessage.textContent = message || "Description manquante";
 
-                // Afficher la section de prévisualisation
                 previewSection.style.display = 'block';
             });
         });
 
-        // Gestion du bouton "Accepter"
         const submitBtn = document.getElementById('submit-btn');
         submitBtn.addEventListener('click', () => {
             alert('Réclamation acceptée avec succès !');
-            previewSection.style.display = 'none'; // Masquer la section après acceptation
+            previewSection.style.display = 'none';
         });
 
-        // Gestion du bouton "Rejeter"
         const rejectBtn = document.querySelector('.reset-btn');
         rejectBtn.addEventListener('click', () => {
-           alert('Réclamation non acceptée !');
-           previewSection.style.display = 'none'; // Masquer la section après le reject
+            alert('Réclamation rejetée.');
+            previewSection.style.display = 'none';
         });
-        // Thème jour/nuit
+
         const themeToggle = document.getElementById('theme-toggle');
         themeToggle.addEventListener('click', () => {
-            document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+            const currentTheme = document.body.dataset.theme || "light";
+            document.body.dataset.theme = currentTheme === "dark" ? "light" : "dark";
+            themeToggle.textContent = currentTheme === "dark" ? "☀️" : "🌙";
         });
     </script>
 </body>
