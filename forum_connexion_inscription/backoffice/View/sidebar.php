@@ -10,9 +10,19 @@
                 <i class="bi bi-people"></i> Gestion des Membres
             </a>
         </li>
-        <li>
+        <li class="nav-item">
+            <a href="track_words.php" class="nav-link text-white">
+                <i class="bi bi-people"></i> Suivie des mots offensifs
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="search.php" class="nav-link text-white">
                 <i class="bi bi-search"></i> Rechercher un Sujet
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="search_user.php" class="nav-link text-white">
+                <i class="bi bi-search"></i> Rechercher un utilisateur
             </a>
         </li>
     </ul>

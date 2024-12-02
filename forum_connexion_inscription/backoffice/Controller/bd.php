@@ -10,7 +10,4 @@ function bdd() {
     return $bdd;
 }
 
-
-
-
 ?>
