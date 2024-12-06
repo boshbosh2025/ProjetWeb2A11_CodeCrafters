@@ -8,7 +8,23 @@ body {
 header, footer, nav, section, article, aside {
     display: block;
 }
+/* Button to Chatbot in the top-right corner */
+.to-chatbot-btn {
+    position: absolute;
+    top: 10px;
+    right: 100px;
+    background-color: #0984e3;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
+.to-chatbot-btn:hover {
+    background-color: #74b9ff;
+}
 /* Container Styling */
 .container {
     max-width: 1200px;

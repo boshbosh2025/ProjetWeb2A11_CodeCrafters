@@ -65,11 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_PO
 
         <div class="card shadow-sm p-4 bg-light rounded">
             <?php 
-            if (isset($_SESSION['pseudo'])) {
-                echo '<p class="text-info">Bienvenue, ' . htmlspecialchars($_SESSION['pseudo']) . ' :) - <a href="deconnexion.php" class="btn btn-danger btn-sm">Déconnexion</a></p>';
-            } else {
-                echo '<p class="text-info">Bienvenue : Anonyme :) - <a href="connexion.php" class="btn btn-info btn-sm">Connexion</a></p>';
-            }
+                if (isset($_SESSION['pseudo'])) {
+                    echo '<p class="text-info">Bienvenue, ' . htmlspecialchars($_SESSION['pseudo']) . ' :) - <a href="deconnexion.php" class="btn btn-danger btn-sm">Déconnexion</a></p>';
+                    echo '<button class="to-chatbot-btn" onclick="window.location.href=\'bot.php\';">To Chatbot</button>';
+                } else {
+                    echo '<p class="text-info">Bienvenue : Anonyme :) - <a href="connexion.php" class="btn btn-info btn-sm">Connexion</a></p>';
+                }
 
             if (isset($_GET['categorie'])) { 
                 $categorie = htmlspecialchars($_GET['categorie']);
