@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire de Réclamation</title>
     <style>
-        /* Style général */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -147,6 +146,23 @@
             margin: 0.5rem 0;
             border-radius: 4px;
         }
+
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
     </style>
 </head>
 <body>
@@ -157,10 +173,10 @@
     <main>
         <section>
             <h2>Soumettez votre réclamation</h2>
-            <form id="reclamation-form">
+            <form id="reclamation-form" action="../controller/reclamationC.php" method="POST">
                 <label for="id">Identifiant :</label>
                 <input type="text" id="id" name="id" placeholder="Votre identifiant" required>
-
+            
                 <label for="type">Type de réclamation :</label>
                 <select id="type" name="type" required>
                     <option value="" disabled selected>-- Sélectionnez --</option>
@@ -169,32 +185,28 @@
                     <option value="technique">Problème technique</option>
                     <option value="autre">Autre</option>
                 </select>
-
+            
                 <div id="cours-details" class="dynamic-field">
                     <label for="cours-name">Nom du cours :</label>
                     <input type="text" id="cours-name" name="cours-name" placeholder="Nom du cours">
                 </div>
-
+            
                 <div id="paiement-details" class="dynamic-field">
                     <label for="transaction-id">ID de transaction :</label>
                     <input type="text" id="transaction-id" name="transaction-id" placeholder="Numéro de transaction">
                 </div>
-
+            
                 <label for="message">Description :</label>
                 <textarea id="message" name="message" placeholder="Décrivez votre réclamation" rows="6" required></textarea>
-
+            
                 <div class="form-buttons">
                     <button type="reset" class="reset-btn">Réinitialiser</button>
-                    <button type="button" id="submit-btn" class="submit-btn">Envoyer</button>
+                    <button type="submit" class="submit-btn">Envoyer</button>
                 </div>
             </form>
+            
 
             <p class="confirmation-message" id="confirmation-message">Votre réclamation a été soumise avec succès !</p>
-        </section>
-
-        <section id="submitted-list">
-            <h2>Réclamations soumises :</h2>
-            <ul id="names-list"></ul>
         </section>
     </main>
 
@@ -211,30 +223,12 @@
         const confirmationMessage = document.getElementById('confirmation-message');
         const namesList = document.getElementById('names-list');
 
-        // Gestion des champs dynamiques
         typeField.addEventListener('change', () => {
             coursDetails.style.display = typeField.value === 'cours' ? 'block' : 'none';
             paiementDetails.style.display = typeField.value === 'paiement' ? 'block' : 'none';
         });
+        
 
-        // Soumission du formulaire
-        submitBtn.addEventListener('click', () => {
-            if (form.checkValidity()) {
-                const id = document.getElementById('id').value;
-                const type = typeField.value;
-                const message = document.getElementById('message').value;
-
-                const listItem = document.createElement('li');
-                listItem.textContent = `ID: ${id}, Type: ${type}, Message: ${message}`;
-                namesList.appendChild(listItem);
-
-                confirmationMessage.style.display = 'block';
-                setTimeout(() => confirmationMessage.style.display = 'none', 3000);
-                form.reset();
-            } else {
-                alert('Veuillez remplir tous les champs obligatoires.');
-            }
-        });
     </script>
 </body>
 </html>
